@@ -1,0 +1,1084 @@
+# EduTalks
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0476EA">
+    <meta name="description" content="EduTalks - Aplikasi pembelajaran bahasa asing interaktif">
+    <title>EduTalks - Learn Languages Through Talks</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #0476EA;
+            --success: #C6D870;
+            --warning: #FEEE91;
+            --dark-blue: #003366;
+            --mint: #00BFA5;
+            --light-gray: #f5f7fa;
+            --border-radius: 12px;
+        }
+
+        /* Header */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
+            box-shadow: 0 4px 15px rgba(4, 118, 234, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FEEE91 0%, #C6D870 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Main Container */
+        .main-content {
+            padding-bottom: 100px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.5rem 0;
+            z-index: 99;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #999;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .nav-btn i {
+            font-size: 1.5rem;
+        }
+
+        /* Cards & Modules */
+        .card-module {
+            background: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-module-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 0deg, var(--success) 180deg, #e0e0e0 180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            font-family: 'Lato', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-header i {
+            color: var(--primary);
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(4, 118, 234, 0.3);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary-custom:hover {
+            background: var(--light-gray);
+        }
+
+        /* Badge & Stats */
+        .badge-custom {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--warning) 0%, #FFD700 100%);
+            color: var(--dark-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+
+        /* Modal */
+        .modal-content {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
+            color: white;
+            border: none;
+        }
+
+        .modal-title {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+        }
+
+        .btn-close-white {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .animate-in {
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Tab Content */
+        .tab-content-section {
+            display: none;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .tab-content-section.active {
+            display: block;
+        }
+
+        /* Achievement Section */
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .achievement-item {
+            background: white;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: scale(1.1);
+        }
+
+        .achievement-locked {
+            opacity: 0.4;
+            filter: grayscale(100%);
+        }
+
+        /* Language Levels */
+        .level-btn {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+            text-align: left;
+        }
+
+        .level-btn:hover, .level-btn.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(4, 118, 234, 0.05) 0%, rgba(0, 191, 165, 0.05) 100%);
+        }
+
+        .level-title {
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .level-desc {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .card-module,
+        body.dark-mode .stat-box,
+        body.dark-mode .achievement-item,
+        body.dark-mode .nav-tabs-bottom,
+        body.dark-mode .level-btn {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .section-header {
+            color: #e0e0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-container {
+                font-size: 1.2rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .section-header {
+                font-size: 1.3rem;
+            }
+
+            .card-module {
+                padding: 1rem;
+            }
+        }
+
+        .section-container {
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <nav class="navbar-custom">
+        <div class="container-fluid px-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <span>EduTalks</span>
+                </div>
+                <button class="btn btn-link text-white" id="darkModeToggle" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Tab: Home -->
+        <div class="tab-content-section active" id="tab-home">
+            <div class="section-container">
+                <!-- Greeting -->
+                <div class="card-module" style="background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%); color: white; margin-top: 1rem;">
+                    <h2 class="mb-2" style="font-family: 'Lato', sans-serif;">Selamat Datang Kembali! 👋</h2>
+                    <p class="mb-0">Mari lanjutkan perjalanan belajar bahasa Anda hari ini.</p>
+                </div>
+
+                <!-- Stats -->
+                <h3 class="section-header"><i class="fas fa-chart-line"></i> Statistik Anda</h3>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <div class="stat-value">142</div>
+                            <div class="stat-label">Total Poin</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Hari Berturut-turut</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Pelajaran Selesai</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <div class="stat-value">89</div>
+                            <div class="stat-label">Kata Dipelajari</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Challenge -->
+                <h3 class="section-header"><i class="fas fa-fire"></i> Tantangan Harian</h3>
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #FEEE91 0%, #FFD700 100%);">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Kosakata Harian</h5>
+                            <small class="text-muted">Pelajari 5 kata baru hari ini</small>
+                        </div>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" style="width: 60%; background: linear-gradient(90deg, var(--success) 0%, var(--mint) 100%);"></div>
+                    </div>
+                    <div class="text-end mt-2">
+                        <small class="text-muted">3 dari 5 selesai</small>
+                    </div>
+                </div>
+
+                <!-- Recommended Lessons -->
+                <h3 class="section-header"><i class="fas fa-book"></i> Pelajaran Rekomendasi</h3>
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%);">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Pelatihan Pengucapan</h5>
+                            <small class="text-muted">Menengah • 15 menit</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Praktik pengucapan dengan native speaker virtual</p>
+                    <button class="btn-primary-custom w-100">Mulai Sekarang</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Lessons -->
+        <div class="tab-content-section" id="tab-lessons">
+            <div class="section-container">
+                <h2 class="section-header" style="margin-top: 1.5rem;"><i class="fas fa-graduation-cap"></i> Pelajaran</h2>
+                
+                <!-- Language Selection -->
+                <h4 class="mt-3 mb-2" style="color: var(--dark-blue); font-weight: 600;">Pilih Bahasa</h4>
+                <div class="mb-3">
+                    <div class="level-btn active" onclick="selectLanguage(this, 'english')">
+                        <div class="level-title">🇺🇸 Bahasa Inggris</div>
+                        <div class="level-desc">A1 Pemula • 24 Pelajaran</div>
+                    </div>
+                    <div class="level-btn" onclick="selectLanguage(this, 'spanish')">
+                        <div class="level-title">🇪🇸 Bahasa Spanyol</div>
+                        <div class="level-desc">A1 Pemula • 20 Pelajaran</div>
+                    </div>
+                    <div class="level-btn" onclick="selectLanguage(this, 'french')">
+                        <div class="level-title">🇫🇷 Bahasa Perancis</div>
+                        <div class="level-desc">A1 Pemula • 22 Pelajaran</div>
+                    </div>
+                </div>
+
+                <!-- Proficiency Levels -->
+                <h4 class="mt-4 mb-2" style="color: var(--dark-blue); font-weight: 600;">Tingkat Kemahiran</h4>
+                
+                <div class="card-module">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--dark-blue);">A1 - Pemula</h5>
+                        <span class="badge-custom">50% Selesai</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar" style="width: 50%; background: linear-gradient(90deg, #FF6B6B 0%, #FF8E72 100%);"></div>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-2"><small>Pelajaran tersedia:</small></p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-sm btn-outline-primary">Pengenalan Dasar</button>
+                            <button class="btn btn-sm btn-outline-primary">Alfabet & Suara</button>
+                            <button class="btn btn-sm btn-outline-primary">Salam</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-module">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0" style="color: var(--dark-blue);">A2 - Dasar</h5>
+                        <span class="badge-custom" style="background: #e0e0e0; color: #666;">Terkunci</span>
+                    </div>
+                    <p class="text-muted mb-0"><small>Selesaikan A1 untuk membuka level ini</small></p>
+                </div>
+
+                <!-- Featured Courses -->
+                <h4 class="mt-4 mb-2" style="color: var(--dark-blue); font-weight: 600;">Kursus Unggulan</h4>
+                
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%);">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Bahasa Kuliner</h5>
+                            <small class="text-muted">30 Pelajaran • Menengah</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Pelajari kosakata restoran dan masakan</p>
+                    <button class="btn-primary-custom w-100">Jelajahi Kursus</button>
+                </div>
+
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #FF6B9D 0%, #FF8E72 100%);">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Bahasa Perjalanan</h5>
+                            <small class="text-muted">25 Pelajaran • Dasar</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Percakapan penting untuk petualangan Anda</p>
+                    <button class="btn-primary-custom w-100">Jelajahi Kursus</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Practice -->
+        <div class="tab-content-section" id="tab-practice">
+            <div class="section-container">
+                <h2 class="section-header" style="margin-top: 1.5rem;"><i class="fas fa-dumbbell"></i> Latihan</h2>
+
+                <!-- Vocabulary Quiz -->
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, var(--success) 0%, var(--mint) 100%);">
+                            <i class="fas fa-spell-check"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Kuis Kosakata</h5>
+                            <small class="text-muted">Pilihan Ganda • 5 menit</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Uji pengetahuan kosakata Anda dengan quiz interaktif</p>
+                    <button class="btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#vocabQuizModal">Mulai Kuis</button>
+                </div>
+
+                <!-- Memory Game -->
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #FFC107 0%, #FEEE91 100%);">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Permainan Memori</h5>
+                            <small class="text-muted">Game • 10 menit</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Mainkan permainan memori klasik dengan kosakata</p>
+                    <button class="btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#memoryGameModal">Mainkan Game</button>
+                </div>
+
+                <!-- Speaking Practice -->
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #FF6B9D 0%, #FF8E72 100%);">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Latihan Pengucapan</h5>
+                            <small class="text-muted">Audio • 8 menit</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Rekam dan bandingkan pengucapan Anda dengan native speaker</p>
+                    <button class="btn-primary-custom w-100" data-bs-toggle="modal" data-bs-target="#speakingModal">Mulai Latihan</button>
+                </div>
+
+                <!-- Grammar Exercises -->
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);">
+                            <i class="fas fa-pen-fancy"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Latihan Tata Bahasa</h5>
+                            <small class="text-muted">Isi Kekosongan • 12 menit</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Selesaikan kalimat dengan tata bahasa yang benar</p>
+                    <button class="btn-primary-custom w-100">Mulai Latihan</button>
+                </div>
+
+                <!-- Spaced Repetition -->
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #4CAF50 0%, var(--success) 100%);">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Pengulangan Spasi</h5>
+                            <small class="text-muted">Kartu Flashcard • Adaptif</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Pelajari dengan kartu flashcard yang disesuaikan dengan ritme Anda</p>
+                    <button class="btn-primary-custom w-100">Buka Flashcard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Progress -->
+        <div class="tab-content-section" id="tab-progress">
+            <div class="section-container">
+                <h2 class="section-header" style="margin-top: 1.5rem;"><i class="fas fa-chart-bar"></i> Kemajuan</h2>
+
+                <!-- Weekly Performance -->
+                <div class="card-module">
+                    <h5 style="color: var(--dark-blue); margin-bottom: 1rem;">Performa Minggu Ini</h5>
+                    <div class="row text-center">
+                        <div class="col-4">
+                            <div style="font-size: 2rem; color: var(--primary);">📚</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--dark-blue);">12</div>
+                            <small class="text-muted">Pelajaran</small>
+                        </div>
+                        <div class="col-4">
+                            <div style="font-size: 2rem;">🎯</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--dark-blue);">45</div>
+                            <small class="text-muted">Menit</small>
+                        </div>
+                        <div class="col-4">
+                            <div style="font-size: 2rem;">⭐</div>
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--dark-blue);">87</div>
+                            <small class="text-muted">Poin</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Level -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Tingkat Keterampilan</h4>
+                
+                <div class="card-module">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span style="color: var(--dark-blue); font-weight: 600;">Mendengar</span>
+                            <span style="color: var(--primary); font-weight: 700;">75%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 75%; background: linear-gradient(90deg, var(--primary) 0%, var(--mint) 100%);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span style="color: var(--dark-blue); font-weight: 600;">Berbicara</span>
+                            <span style="color: var(--primary); font-weight: 700;">62%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 62%; background: linear-gradient(90deg, var(--primary) 0%, var(--mint) 100%);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span style="color: var(--dark-blue); font-weight: 600;">Membaca</span>
+                            <span style="color: var(--primary); font-weight: 700;">88%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 88%; background: linear-gradient(90deg, var(--primary) 0%, var(--mint) 100%);"></div>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span style="color: var(--dark-blue); font-weight: 600;">Menulis</span>
+                            <span style="color: var(--primary); font-weight: 700;">71%</span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar" style="width: 71%; background: linear-gradient(90deg, var(--primary) 0%, var(--mint) 100%);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Pencapaian Anda</h4>
+                
+                <div class="card-module">
+                    <div class="achievement-grid">
+                        <div class="achievement-item" title="Starter">🌟</div>
+                        <div class="achievement-item" title="7 Hari Berturut-turut">🔥</div>
+                        <div class="achievement-item" title="100 Poin Pertama">💯</div>
+                        <div class="achievement-item" title="25 Pelajaran">📚</div>
+                        <div class="achievement-item" title="Pengucapan Sempurna">🎤</div>
+                        <div class="achievement-item achievement-locked" title="50 Hari Berturut-turut">🏆</div>
+                        <div class="achievement-item achievement-locked" title="Ahli Kosakata">👑</div>
+                        <div class="achievement-item achievement-locked" title="Polyglot">🌍</div>
+                    </div>
+                </div>
+
+                <!-- Vocabulary Stats -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Statistik Kosakata</h4>
+                
+                <div class="card-module">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">89</div>
+                            <small class="text-muted">Kata Dipelajari</small>
+                        </div>
+                        <div class="col-6">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--success);">156</div>
+                            <small class="text-muted">Kata dalam Tinjauan</small>
+                        </div>
+                    </div>
+                    <p class="text-muted mb-0"><small>Terus latih kosakata sulit untuk meningkatkan retensi</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Community -->
+        <div class="tab-content-section" id="tab-community">
+            <div class="section-container">
+                <h2 class="section-header" style="margin-top: 1.5rem;"><i class="fas fa-users"></i> Komunitas</h2>
+
+                <!-- Leaderboard -->
+                <h4 class="mt-3 mb-3" style="color: var(--dark-blue); font-weight: 600;">Papan Peringkat Minggu Ini</h4>
+                
+                <div class="card-module" style="padding: 0;">
+                    <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%); color: white; padding: 1rem; border-radius: var(--border-radius) var(--border-radius) 0 0;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>🥇 Anda</span>
+                            <span style="font-weight: 700; font-size: 1.2rem;">287 poin</span>
+                        </div>
+                    </div>
+                    <div style="padding: 1rem;">
+                        <div class="mb-3 pb-3" style="border-bottom: 1px solid #e0e0e0;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div><span style="font-weight: 700; color: var(--primary);">🥈</span> <span style="font-weight: 600; color: var(--dark-blue);">Alex Chen</span></div>
+                                <span style="color: #999;">265 poin</span>
+                            </div>
+                        </div>
+                        <div class="mb-3 pb-3" style="border-bottom: 1px solid #e0e0e0;">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div><span style="font-weight: 700; color: #C0C0C0;">🥉</span> <span style="font-weight: 600; color: var(--dark-blue);">Maria García</span></div>
+                                <span style="color: #999;">242 poin</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div><span style="font-weight: 700; color: #999;">4</span> <span style="font-weight: 600; color: var(--dark-blue);">James Wilson</span></div>
+                                <span style="color: #999;">215 poin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Groups -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Kelompok Belajar</h4>
+                
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #FF6B9D 0%, #FF8E72 100%); font-size: 1.2rem;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Pemula Bahasa Inggris</h5>
+                            <small class="text-muted">128 anggota • Aktif</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Bergabunglah dengan pemelajar lain untuk tantangan kelompok harian</p>
+                    <button class="btn-primary-custom w-100">Gabung Kelompok</button>
+                </div>
+
+                <div class="card-module">
+                    <div class="card-module-header">
+                        <div class="module-icon" style="background: linear-gradient(135deg, #4CAF50 0%, var(--success) 100%); font-size: 1.2rem;">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0" style="color: var(--dark-blue);">Forum Percakapan</h5>
+                            <small class="text-muted">Terbuka • 450+ Diskusi</small>
+                        </div>
+                    </div>
+                    <p class="mb-2">Bagikan pertanyaan dan tips dengan komunitas global</p>
+                    <button class="btn-primary-custom w-100">Buka Forum</button>
+                </div>
+
+                <!-- Live Sessions -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Sesi Live Mendatang</h4>
+                
+                <div class="card-module">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 style="color: var(--dark-blue); margin-bottom: 0.25rem;">Percakapan dengan Native Speaker</h5>
+                            <small class="text-muted">🕐 Hari ini, 18:00 WIB</small>
+                        </div>
+                        <span class="badge-custom" style="background: linear-gradient(135deg, #FF6B9D 0%, #FF8E72 100%); color: white;">LIVE</span>
+                    </div>
+                    <p class="text-muted mb-2"><small>Pembicara: Sarah Thompson (Native English Speaker)</small></p>
+                    <button class="btn-primary-custom w-100">Daftar Sekarang</button>
+                </div>
+
+                <div class="card-module">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h5 style="color: var(--dark-blue); margin-bottom: 0.25rem;">Kelas Tata Bahasa Interaktif</h5>
+                            <small class="text-muted">🕐 Besok, 14:30 WIB</small>
+                        </div>
+                        <span class="badge-custom">TERSEDIA</span>
+                    </div>
+                    <p class="text-muted mb-2"><small>Pengajar: Prof. Miguel García</small></p>
+                    <button class="btn-primary-custom w-100">Daftar Sekarang</button>
+                </div>
+
+                <!-- Challenge Section -->
+                <h4 class="mt-4 mb-3" style="color: var(--dark-blue); font-weight: 600;">Tantangan Kelompok</h4>
+                
+                <div class="card-module">
+                    <div class="mb-3">
+                        <h5 style="color: var(--dark-blue); margin-bottom: 0.5rem;">Tantangan 30 Hari</h5>
+                        <small class="text-muted">Selesaikan 1 pelajaran setiap hari selama 30 hari</small>
+                    </div>
+                    <div class="progress" style="height: 10px; margin-bottom: 1rem;">
+                        <div class="progress-bar" style="width: 57%; background: linear-gradient(90deg, var(--success) 0%, var(--mint) 100%);"></div>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted">17 dari 30 hari selesai</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-bottom">
+        <button class="nav-btn active" onclick="switchTab('home')">
+            <i class="fas fa-home"></i>
+            <span>Beranda</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('lessons')">
+            <i class="fas fa-book"></i>
+            <span>Pelajaran</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('practice')">
+            <i class="fas fa-dumbbell"></i>
+            <span>Latihan</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('progress')">
+            <i class="fas fa-chart-bar"></i>
+            <span>Kemajuan</span>
+        </button>
+        <button class="nav-btn" onclick="switchTab('community')">
+            <i class="fas fa-users"></i>
+            <span>Komunitas</span>
+        </button>
+    </div>
+
+    <!-- Modals -->
+    <!-- Vocabulary Quiz Modal -->
+    <div class="modal fade" id="vocabQuizModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kuis Kosakata</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="quizContent">
+                        <div class="mb-3">
+                            <p style="font-weight: 600; color: var(--dark-blue);">Pertanyaan 1 dari 5</p>
+                            <div class="progress mb-3" style="height: 6px;">
+                                <div class="progress-bar" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                        <h6 style="color: var(--dark-blue); margin-bottom: 1rem;">Apa arti dari "Hello"?</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary text-start" onclick="selectAnswer(this)">A. Selamat Tinggal</button>
+                            <button class="btn btn-outline-primary text-start" onclick="selectAnswer(this)">B. Halo / Salam</button>
+                            <button class="btn btn-outline-primary text-start" onclick="selectAnswer(this)">C. Terima Kasih</button>
+                            <button class="btn btn-outline-primary text-start" onclick="selectAnswer(this)">D. Apa Kabar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn-primary-custom">Lanjut</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Game Modal -->
+    <div class="modal fade" id="memoryGameModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Permainan Memori</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <div style="font-weight: 700; color: var(--primary); font-size: 1.2rem;">Skor: 0</div>
+                    </div>
+                    <div class="row" id="memoryGrid">
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                        <div class="col-3 mb-2"><div class="card-memory" style="background: linear-gradient(135deg, var(--primary) 0%, var(--mint) 100%); aspect-ratio: 1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s;">?</div></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Speaking Practice Modal -->
+    <div class="modal fade" id="speakingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Latihan Pengucapan</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div style="margin: 2rem 0;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎤</div>
+                        <p style="color: var(--dark-blue); font-weight: 600; margin-bottom: 1rem;">Ucapkan kata berikut:</p>
+                        <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%); color: white; padding: 1.5rem; border-radius: 8px; font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem;">
+                            "Beautiful"
+                        </div>
+                    </div>
+                    <button class="btn-primary-custom w-100 mb-2">
+                        <i class="fas fa-microphone me-2"></i> Mulai Merekam
+                    </button>
+                    <button class="btn-secondary-custom w-100">
+                        <i class="fas fa-play me-2"></i> Dengarkan Contoh
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:application/javascript;base64,KCgpID0+IHsKICBjb25zdCBDQUNIRV9OQU1FID0gJ2VkdXRhbGtzLWNhY2hlLXYxJzsKICBjb25zdCBVUkxTX1RPX0NBQ0hFID0gWwogICAgJy8nLAogICAgJy9pbmRleC5odG1sJywKICAgICcvaW1hZ2VzLyonLAogICAgJy9zdHlsZXMuY3NzJwogIF07CgogIHNlbGYuYWRkRXZlbnRMaXN0ZW5lcignaW5zdGFsbCcsIChldikgPT4gewogICAgZXYud2FpdFVudGlsKHNlbGYuY2FjaGVzLm9wZW4oQ0FDSEVfTkFNRSkudGhlbigocmVzKSA9PiB7CiAgICAgIHJlc3VyY2UgPSBbCiAgICAgICAgJy8nLAogICAgICAgICcvaW1hZ2VzL2lvcycKICAgICAgXTsKICAgICAgcmV0dXJuIHJlcy5hZGRBbGwocmVzb3VyY2UpOwogICAgfSkpOwogIH0pOwoKICBzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgKGV2KSA9PiB7CiAgICBpZiAoZXYucmVxdWVzdC5tZXRob2QgIT09ICdHRVQnKSByZXR1cm47CiAgICBldi5yZXNwb25kV2l0aCgKICAgICAgY2FjaGVzLm1hdGNoKGV2LnJlcXVlc3QpLnRoZW4oKHJlc3ApID0+IHsKICAgICAgICByZXR1cm4gcmVzcCB8fCBmZXRjaChldi5yZXF1ZXN0KTsKICAgICAgfSkKICAgICk7CiAgfSk7Cn0pKCk7Cg==');
+        }
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+        }
+
+        // Tab Switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content-section');
+            const navBtns = document.querySelectorAll('.nav-btn');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            navBtns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.closest('.nav-btn').classList.add('active');
+        }
+
+        // Language Selection
+        function selectLanguage(element, lang) {
+            document.querySelectorAll('.level-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Quiz Answer Selection
+        function selectAnswer(btn) {
+            document.querySelectorAll('.modal-body .btn').forEach(b => b.classList.remove('btn-primary'));
+            btn.classList.add('btn-primary');
+            btn.classList.remove('btn-outline-primary');
+        }
+
+        // Notification Request
+        function requestNotification() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        // Initialize on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            requestNotification();
+            
+            // Add PWA install prompt
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+            });
+        });
+
+        // Simulated animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card-module');
+            cards.forEach((card, index) => {
+                card.style.animation = `slideInUp 0.5s ease-out ${index * 0.1}s both`;
+            });
+        });
+    </script>
+</body>
+</html>
